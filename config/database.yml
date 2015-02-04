@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: preflight-dev
+  pool: 10
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  database: preflight-test
+  pool: 10
+  timeout: 5000

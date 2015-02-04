@@ -1,0 +1,47 @@
+!!! 5
+- application_name = Rails.application.class.to_s.split('::').first
+%html(lang="en-US" class="#{controller_name}-#{action_name}")
+  %head
+    %title
+      - if content_for?(:title)
+        = yield (:title)
+      - else
+        = application_name
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %header
+      %nav.navbar.navbar-default.navbar-fixed-top{role: 'navigation'}
+        .container-fluid
+          .navbar-header
+            %a.navbar-brand{href: '/'}= application_name
+          
+          .collapse.navbar-collapse
+            - if user_signed_in?
+              %ul.nav.navbar-nav
+
+              %p.navbar-text Signed in as #{current_user.email}
+              %ul.nav.navbar-nav
+                %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+            - else
+              %ul.nav.navbar-nav
+                %li= link_to 'Sign In', new_user_session_path
+                %li= link_to 'Sign Up', new_user_registration_path
+          
+    .container-fluid
+      .row
+        .col-md-9.col-md-offset-1{role: 'main'}
+          - flash.keys.each do |key|
+            .alert{ class: "alert-#{rails_to_bootstrap_flash_key(key)}" }
+              %a.close{ href: '#', "data-dismiss" => "alert" } x
+              %h4.alert-heading= key.capitalize
+              - if flash[key].respond_to?(:each)
+                - flash[key].each do |msg|
+                  = msg
+                  %br
+              - else
+                = flash[key]
+              - flash.delete(key)
+          = yield
+  = yield(:page_javascript) if content_for? :page_javascript
