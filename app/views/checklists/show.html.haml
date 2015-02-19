@@ -1,5 +1,8 @@
 %p#notice= notice
 
+%h1= checklist.name
+
+= render 'checklist_items', checklist: checklist
 
 = link_to 'Edit', edit_checklist_path(checklist)
 \|

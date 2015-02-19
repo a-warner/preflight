@@ -21,6 +21,8 @@
             - if user_signed_in?
               %ul.nav.navbar-nav
 
+              %ul.nav.navbar-nav
+                %li= link_to 'Checklists', checklists_path
               %p.navbar-text Signed in as #{current_user.email}
               %ul.nav.navbar-nav
                 %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
