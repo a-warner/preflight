@@ -14,6 +14,8 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv.load!
+
 module Preflight
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
