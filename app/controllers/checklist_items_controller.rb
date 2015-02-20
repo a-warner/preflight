@@ -1,9 +1,13 @@
 class ChecklistItemsController < ApplicationController
+  before_filter :authenticate_user!
+
   expose(:checklist)
   expose(:checklist_items, ancestor: :checklist)
   expose(:checklist_item, attributes: :checklist_item_params)
 
   def create
+    checklist_item.created_by = current_user
+
     if checklist_item.save
       render partial: 'checklists/checklist_item', locals: {item: checklist_item, checklist: checklist}
     else

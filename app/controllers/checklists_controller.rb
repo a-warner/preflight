@@ -1,4 +1,6 @@
 class ChecklistsController < ApplicationController
+  before_filter :authenticate_user!
+
   expose(:checklists)
   expose(:checklist, attributes: :checklist_params)
 
@@ -15,6 +17,8 @@ class ChecklistsController < ApplicationController
   end
 
   def create
+    checklist.created_by = current_user
+
     if checklist.save
       redirect_to checklist, notice: 'Checklist was successfully created.'
     else

@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   attribute_method_suffix '_previously_changed?'
 
   has_many :identities, dependent: :destroy
+  has_many :checklists, foreign_key: :created_by_id
+  has_many :checklist_items, foreign_key: :created_by_id
 
   def just_created?
     id_previously_changed?
