@@ -2,6 +2,8 @@ class Identity < ActiveRecord::Base
   belongs_to :user, inverse_of: :identities
   validates :provider, presence: true, :inclusion => { in: %w(github) }
   validates :omniauth_data, presence: true
+  validates :uid, uniqueness: {scope: [:provider]}
+  validates :provider, uniqueness: {scope: [:user_id]}
 
   serialize :omniauth_data, Hash
 
