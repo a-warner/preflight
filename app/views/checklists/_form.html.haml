@@ -6,6 +6,9 @@
         - checklist.errors.full_messages.each do |msg|
           %li= msg
   .form-group
+    = f.label :github_repository_id
+    = f.select :github_repository_id, current_user.accessible_github_repositories.select_options, include_blank: true
+    %br
     = f.label :name
     = f.text_field :name
 

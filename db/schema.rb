@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222010937) do
+ActiveRecord::Schema.define(version: 20150222225503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,11 +25,14 @@ ActiveRecord::Schema.define(version: 20150222010937) do
   end
 
   create_table "checklists", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "created_by_id", null: false
+    t.string   "name",                 null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "created_by_id",        null: false
+    t.integer  "github_repository_id", null: false
   end
+
+  add_index "checklists", ["github_repository_id"], name: "index_checklists_on_github_repository_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -47,6 +50,17 @@ ActiveRecord::Schema.define(version: 20150222010937) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "github_repositories", force: :cascade do |t|
+    t.integer  "github_id",         null: false
+    t.string   "github_full_name",  null: false
+    t.string   "github_owner_type", null: false
+    t.string   "github_url",        null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "github_repositories", ["github_id"], name: "index_github_repositories_on_github_id", unique: true, using: :btree
+
   create_table "identities", force: :cascade do |t|
     t.string   "provider",      null: false
     t.integer  "user_id",       null: false
@@ -60,19 +74,20 @@ ActiveRecord::Schema.define(version: 20150222010937) do
   add_index "identities", ["user_id", "provider"], name: "index_identities_on_user_id_and_provider", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                            default: "",    null: false
+    t.string   "encrypted_password",               default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                    default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                  default: false, null: false
+    t.boolean  "admin",                            default: false, null: false
+    t.text     "accessible_github_repository_ids", default: [],                 array: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

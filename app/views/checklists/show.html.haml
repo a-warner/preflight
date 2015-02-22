@@ -1,6 +1,9 @@
 %p#notice= notice
 
-%h1= checklist.name
+%h1
+  = link_to checklist.github_repository.github_full_name, checklist.github_repository.github_url, target: '_blank'
+  = "/"
+  = checklist.name
 
 = render 'checklist_items', checklist: checklist
 

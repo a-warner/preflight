@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
           u.identities.link!(omniauth)
         end
       end
+    end.tap do |u|
+      u.sync_accessible_repositories
     end
   end
 
@@ -37,6 +39,20 @@ class User < ActiveRecord::Base
 
   def github_client
     github_identity.client
+  end
+
+  def sync_accessible_repositories
+    repos = github_client.repositories_with_write_access
+    GithubRepository.find_or_create_all(repos)
+    update!(accessible_github_repository_ids: repos.map(&:id))
+  end
+
+  def accessible_github_repositories
+    GithubRepository.where(github_id: accessible_github_repository_ids)
+  end
+
+  def can_access_repository?(github_repository)
+    accessible_github_repository_ids.include?(github_repository.github_id)
   end
 
   private

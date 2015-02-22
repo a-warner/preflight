@@ -31,6 +31,6 @@ class Identity < ActiveRecord::Base
   delegate :credentials, to: :omniauth_data
 
   def client
-    Octokit::Client.new(:access_token => credentials.token)
+    GithubClient.new(:access_token => credentials.token)
   end
 end
