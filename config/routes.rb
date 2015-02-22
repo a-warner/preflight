@@ -5,4 +5,10 @@ Rails.application.routes.draw do
   resources :checklists do
     resources :checklist_items, only: [:create, :update, :destroy]
   end
+
+  post '/github/webhook', to: 'webhooks#github'
+
+  constraints ->(request) { request.env['warden'].authenticate? && request.env['warden'].user.admin? } do
+    match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
+  end
 end

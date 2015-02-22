@@ -1,0 +1,6 @@
+{
+  "app/workers/*_worker.rb" : {
+    "command": "worker",
+    "template": "class %SWorker\nend"
+  }
+}

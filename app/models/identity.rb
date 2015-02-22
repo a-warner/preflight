@@ -27,4 +27,8 @@ class Identity < ActiveRecord::Base
   end
 
   delegate :credentials, to: :omniauth_data
+
+  def client
+    Octokit::Client.new(:access_token => credentials.token)
+  end
 end

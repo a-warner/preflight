@@ -35,7 +35,15 @@ class User < ActiveRecord::Base
     identities.find_by_omniauth!(omniauth.provider).update_from_omniauth!(omniauth)
   end
 
+  def github_client
+    github_identity.client
+  end
+
   private
+
+  def github_identity
+    identities.find_by_provider!('github')
+  end
 
   def attribute_previously_changed?(attr)
     previous_changes.keys.include?(attr.to_s)

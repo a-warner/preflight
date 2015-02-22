@@ -3,12 +3,16 @@ source 'https://rubygems.org'
 
 gem "decent_exposure"
 gem "decent_generators"
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 gem "devise"
 gem 'dotenv'
 gem "haml"
 gem "haml-rails"
 gem "omniauth"
 gem 'omniauth-github'
+gem 'octokit'
 gem "pg"
 gem "pry"
 gem "pry-rails"
