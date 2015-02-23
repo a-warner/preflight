@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223012124) do
+ActiveRecord::Schema.define(version: 20150223135342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applied_checklists", force: :cascade do |t|
+    t.integer  "checklist_id",           null: false
+    t.integer  "github_pull_request_id", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "applied_checklists", ["checklist_id"], name: "index_applied_checklists_on_checklist_id", using: :btree
+  add_index "applied_checklists", ["github_pull_request_id", "checklist_id"], name: "one_checklist_application_per_pull", unique: true, using: :btree
 
   create_table "checklist_items", force: :cascade do |t|
     t.string   "name",          null: false

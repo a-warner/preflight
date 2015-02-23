@@ -11,6 +11,11 @@ class GithubWebhookWorker < Struct.new(:headers, :body)
 
   def perform
     verify_signature!
+
+    return unless parsed_body['action'] == 'opened'
+    return unless repo = GithubRepository.find_by_github_id(parsed_body['repository']['id'])
+
+    repo.apply_checklists_for_pull!(parsed_body)
   end
 
   def verify_signature!
@@ -18,5 +23,11 @@ class GithubWebhookWorker < Struct.new(:headers, :body)
     signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV.fetch('GITHUB_WEBHOOK_SECRET'), body)
 
     raise InvalidSignature unless hub_signature == signature
+  end
+
+  private
+
+  def parsed_body
+    @parsed_body ||= JSON.parse(body)
   end
 end
