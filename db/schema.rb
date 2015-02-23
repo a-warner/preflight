@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222225503) do
+ActiveRecord::Schema.define(version: 20150223012124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 20150222225503) do
   end
 
   add_index "github_repositories", ["github_id"], name: "index_github_repositories_on_github_id", unique: true, using: :btree
+
+  create_table "github_webhooks", force: :cascade do |t|
+    t.integer  "github_id",            null: false
+    t.integer  "github_repository_id", null: false
+    t.integer  "created_by_id",        null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "github_webhooks", ["github_id"], name: "index_github_webhooks_on_github_id", using: :btree
+  add_index "github_webhooks", ["github_repository_id"], name: "index_github_webhooks_on_github_repository_id", unique: true, using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.string   "provider",      null: false

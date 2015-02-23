@@ -4,4 +4,8 @@ class ApplicationController < ActionController::Base
   decent_configuration do
     strategy DecentExposure::StrongParametersStrategy
   end
+
+  def default_url_options
+    ActionMailer::Base.default_url_options
+  end
 end
