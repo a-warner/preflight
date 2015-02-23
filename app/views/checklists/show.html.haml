@@ -1,7 +1,7 @@
 %p#notice= notice
 
 %h1
-  = link_to checklist.github_repository.github_full_name, checklist.github_repository.github_url, target: '_blank'
+  = link_to checklist.github_repository.github_full_name, github_repository_path(checklist.github_repository)
   = "/"
   = checklist.name
 

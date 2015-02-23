@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :checklist_items, only: [:create, :update, :destroy]
   end
 
+  resources :github_repositories, only: :show
+
   post '/github/webhook', to: 'webhooks#github'
 
   constraints ->(request) { request.env['warden'].authenticate? && request.env['warden'].user.admin? } do

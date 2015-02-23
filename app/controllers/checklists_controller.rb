@@ -1,10 +1,11 @@
 class ChecklistsController < ApplicationController
   before_filter :authenticate_user!
 
-  expose(:checklists)
+  expose(:checklists) { current_user.accessible_checklists }
   expose(:checklist, attributes: :checklist_params)
 
   def index
+    checklists.includes(:github_repository)
   end
 
   def show

@@ -1,0 +1,14 @@
+%h1
+  = github_repository.github_full_name
+  = '('
+  = link_to 'Github', github_repository.github_url, target: '_blank'
+  = ')'
+
+%table.table
+  %thead
+    %tr
+      %th
+  %tbody
+  - github_repository.checklists.each do |c|
+    %tr
+      %td= link_to c.name, checklist_url(c)

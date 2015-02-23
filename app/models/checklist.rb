@@ -6,6 +6,10 @@ class Checklist < ActiveRecord::Base
 
   validate :user_can_access_repository
 
+  def self.for_repositories(github_repositories)
+    where("github_repository_id IN (#{github_repositories.select(:id).to_sql})")
+  end
+
   private
 
   def user_can_access_repository

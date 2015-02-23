@@ -3,12 +3,14 @@
 %table.table
   %tr
     %th Name
+    %th Repository
     %th
     %th
 
   - checklists.each do |checklist|
     %tr
       %td= link_to checklist.name, checklist
+      %th= link_to checklist.github_repository.github_full_name, github_repository_path(checklist.github_repository)
       %td= link_to 'Edit', edit_checklist_path(checklist)
       %td= link_to 'Destroy', checklist, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

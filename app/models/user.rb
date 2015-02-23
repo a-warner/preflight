@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
     GithubRepository.where(github_id: accessible_github_repository_ids)
   end
 
+  def accessible_checklists
+    Checklist.for_repositories(accessible_github_repositories)
+  end
+
   def can_access_repository?(github_repository)
     accessible_github_repository_ids.include?(github_repository.github_id)
   end
