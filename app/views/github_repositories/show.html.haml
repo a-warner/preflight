@@ -5,10 +5,10 @@
   = ')'
 
 - if github_repository.checklists.any?
-  %table.table
+  %table.table.repository-checklists
     %thead
       %tr
-        %th
+        %th Checklist
     %tbody
     - github_repository.checklists.each do |c|
       %tr
