@@ -1,4 +1,4 @@
-= form_for checklist do |f|
+= form_for checklist, html: {class: 'form-horizontal'} do |f|
   - if checklist.errors.any?
     #error_explanation
       %h2= "#{pluralize(checklist.errors.count, "error")} prohibited this checklist from being saved:"
@@ -6,11 +6,13 @@
         - checklist.errors.full_messages.each do |msg|
           %li= msg
   .form-group
-    = f.label :github_repository_id
-    = f.select :github_repository_id, current_user.accessible_github_repositories.select_options, include_blank: true
-    %br
-    = f.label :name
-    = f.text_field :name
-
-  .actions
-    = f.submit 'Save'
+    = f.label :github_repository_id, class: 'control-label col-sm-2'
+    .col-sm-6
+      = f.select :github_repository_id, current_user.accessible_github_repositories.select_options, {include_blank: true}, class: 'form-control'
+  .form-group
+    = f.label :name, class: 'control-label col-sm-2'
+    .col-sm-6
+      = f.text_field :name, class: 'form-control'
+  .form-group
+    .actions
+      = f.submit 'Save'
