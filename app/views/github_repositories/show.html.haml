@@ -4,11 +4,14 @@
   = link_to 'Github', github_repository.github_url, target: '_blank'
   = ')'
 
-%table.table
-  %thead
-    %tr
-      %th
-  %tbody
-  - github_repository.checklists.each do |c|
-    %tr
-      %td= link_to c.name, checklist_url(c)
+- if github_repository.checklists.any?
+  %table.table
+    %thead
+      %tr
+        %th
+    %tbody
+    - github_repository.checklists.each do |c|
+      %tr
+        %td= link_to c.name, checklist_url(c)
+
+= link_to '[ + ] New Checklist', new_checklist_path(github_repository_id: github_repository.id)

@@ -4,6 +4,9 @@ class ChecklistsController < ApplicationController
   expose(:checklists) { current_user.accessible_checklists }
   expose(:checklist, attributes: :checklist_params)
 
+  expose(:github_repositories) { current_user.accessible_github_repositories }
+  expose(:github_repository)
+
   def index
     checklists.includes(:github_repository)
   end
@@ -12,6 +15,9 @@ class ChecklistsController < ApplicationController
   end
 
   def new
+    if github_repository
+      checklist.github_repository = github_repository
+    end
   end
 
   def edit
