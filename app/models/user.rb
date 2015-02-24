@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def update_from_omniauth!(omniauth)
-    identities.find_by_omniauth!(omniauth.provider).update_from_omniauth!(omniauth)
+    identities.find_by_omniauth!(omniauth).update_from_omniauth!(omniauth)
   end
 
   def github_client

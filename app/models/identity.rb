@@ -24,7 +24,7 @@ class Identity < ActiveRecord::Base
   end
 
   def update_from_omniauth!(omniauth)
-    self.omniauth_data = omniauth_data
+    self.omniauth_data = omniauth
     save!
   end
 
