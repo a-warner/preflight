@@ -1,13 +1,13 @@
-%table.table
-  %thead
-    %tr
-      %th Item
-      %th
-  %tbody
-  - checklist.checklist_items.each do |item|
-    = render 'checklist_item', item: item, checklist: checklist
-  %tr
-    = form_for checklist.checklist_items.new, url: checklist_checklist_items_path(checklist), remote: true, html: {class: 'new-checklist'} do |f|
+= form_for ChecklistItem.new, url: checklist_checklist_items_path(checklist), remote: true, html: {class: 'new-checklist'} do |f|
+  %table.table
+    %thead
+      %tr
+        %th Item
+        %th
+    %tbody
+    - checklist.checklist_items.each do |item|
+      = render 'checklist_item', item: item, checklist: checklist
+    %tr.new
       %td
         = f.text_field :name
       %td
