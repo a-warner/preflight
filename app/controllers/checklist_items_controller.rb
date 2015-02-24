@@ -1,6 +1,7 @@
 class ChecklistItemsController < ApplicationController
   before_filter :authenticate_user!
 
+  expose(:checklists) { current_user.accessible_checklists }
   expose(:checklist)
   expose(:checklist_items, ancestor: :checklist)
   expose(:checklist_item, attributes: :checklist_item_params)
