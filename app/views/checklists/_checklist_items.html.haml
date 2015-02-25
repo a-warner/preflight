@@ -1,14 +1,11 @@
-= form_for ChecklistItem.new, url: checklist_checklist_items_path(checklist), remote: true, html: {class: 'new-checklist'} do |f|
-  %table.table
-    %thead
-      %tr
-        %th Item
-        %th
-    %tbody
-    - checklist.checklist_items.each do |item|
-      = render 'checklist_item', item: item, checklist: checklist
-    %tr.new
-      %td
-        = f.text_field :name
-      %td
-        = f.submit 'Save', :'data-disable-with' => 'Saving..', class: 'btn btn-primary'
+%table.table
+  %thead
+    %tr
+      %th Item
+      %th
+  %tbody
+  - checklist.checklist_items.each do |item|
+    = render 'checklist_item', item: item, checklist: checklist
+  %tr
+    %td= render 'checklist_item_form', checklist: checklist, item: ChecklistItem.new
+    %td

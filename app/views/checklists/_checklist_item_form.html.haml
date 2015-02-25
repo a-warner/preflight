@@ -1,0 +1,3 @@
+= form_for [checklist, item], remote: true do |f|
+  = f.text_field :name
+  = f.submit 'Save', :'data-disable-with' => 'Saving..', class: 'btn btn-primary'

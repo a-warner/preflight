@@ -1,0 +1,15 @@
+.checklist-item-name
+  .edit_checklist_item
+    display: none
+
+  &[data-edit-mode]
+    .edit_checklist_item
+      display: block
+    .name
+      display: none
+
+  &:not([data-edit-mode])
+    &:hover:after
+      content: attr(data-edit-prompt)
+      margin-left: 5px
+      color: grey

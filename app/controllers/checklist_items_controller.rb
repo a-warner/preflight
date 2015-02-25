@@ -8,12 +8,11 @@ class ChecklistItemsController < ApplicationController
 
   def create
     checklist_item.created_by = current_user
+    save_and_render_checklist
+  end
 
-    if checklist_item.save
-      render partial: 'checklists/checklist_item', locals: {item: checklist_item, checklist: checklist}
-    else
-      render text: checklist_item.errors.full_messages.join("\n"), status: :bad_request
-    end
+  def update
+    save_and_render_checklist
   end
 
   def destroy
@@ -22,6 +21,14 @@ class ChecklistItemsController < ApplicationController
   end
 
   private
+
+  def save_and_render_checklist
+    if checklist_item.save
+      render partial: 'checklists/checklist_item', locals: {item: checklist_item, checklist: checklist}
+    else
+      render text: checklist_item.errors.full_messages.join("\n"), status: :bad_request
+    end
+  end
 
   def checklist_item_params
     params.require(:checklist_item).permit(:name)

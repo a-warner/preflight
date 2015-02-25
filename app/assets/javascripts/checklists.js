@@ -2,10 +2,29 @@ $(document).on('ajax:success', '.destroy-checklist-item', function() {
   $(this).closest('tr').remove()
 })
 
-$(document).on('ajax:success', '.new-checklist', function(e, data) {
+$(document).on('ajax:success', '.new_checklist_item', function(e, data) {
   var $form = $(this)
   $form[0].reset()
-  $(data).insertBefore($form.find('.new'))
-}).on('ajax:error', '.new-checklist', function(e, xhr) {
+  $(data).insertBefore($form.closest('tr'))
+}).on('ajax:error', '.new-checklist, .edit_checklist_item', function(e, xhr) {
   alert(xhr.responseText)
+})
+
+$(document).on('click', '.checklist-item-name[data-edit-mode]', function() {
+  var $this = $(this)
+  $this.removeAttr('data-edit-mode')
+}).on('click', '.checklist-item-name:not([data-edit-mode])', function() {
+  var $this = $(this)
+  $this.attr('data-edit-mode', true).
+    find('input[type="text"]').focus().end().
+    closest('table').find('.checklist-item-name').not($this).removeAttr('data-edit-mode')
+  return false
+}).on('click', '.edit_checklist_item input[type="text"]', function() {
+  return false
+}).on('click', function() {
+  $('.checklist-item-name').removeAttr('data-edit-mode')
+})
+
+$(document).on('ajax:success', '.edit_checklist_item', function(e, data) {
+  $(this).closest('tr').replaceWith(data)
 })
