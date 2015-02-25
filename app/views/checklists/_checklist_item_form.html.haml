@@ -1,3 +1,4 @@
+- placeholder ||= nil
 = form_for [checklist, item], remote: true do |f|
-  = f.text_field :name
-  = f.submit 'Save', :'data-disable-with' => 'Saving..', class: 'btn btn-primary'
+  = f.text_field :name, placeholder: placeholder
+  = f.submit 'Save', :'data-disable-with' => 'Saving..', class: 'btn btn-primary btn-sm'

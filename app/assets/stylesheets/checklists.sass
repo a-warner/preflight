@@ -1,3 +1,8 @@
+.checklist-items .row
+  padding: 10px 0 10px
+  .btn
+    vertical-align: middle
+
 .checklist-item-name
   .edit_checklist_item
     display: none
@@ -13,3 +18,12 @@
       content: attr(data-edit-prompt)
       margin-left: 5px
       color: grey
+
+[data-comfortable-text]
+  @media (max-width: 767px)
+    &:after
+      content: attr(data-abbreviated-text)
+
+  @media (min-width: 768px)
+    &:after
+      content: attr(data-comfortable-text)
