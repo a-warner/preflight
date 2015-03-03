@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     accessible_github_repository_ids.include?(github_repository.github_id)
   end
 
+  def avatar_url
+    github_identity.image_url
+  end
+
   private
 
   def github_identity
