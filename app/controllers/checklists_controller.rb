@@ -49,6 +49,6 @@ class ChecklistsController < ApplicationController
   private
 
   def checklist_params
-    params.require(:checklist).permit(:name, :github_repository_id)
+    params.require(:checklist).permit(:name, :github_repository_id, :with_file_matching_pattern)
   end
 end

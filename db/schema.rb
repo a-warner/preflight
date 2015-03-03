@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223135342) do
+ActiveRecord::Schema.define(version: 20150303024255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,11 +35,12 @@ ActiveRecord::Schema.define(version: 20150223135342) do
   end
 
   create_table "checklists", force: :cascade do |t|
-    t.string   "name",                 null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "created_by_id",        null: false
-    t.integer  "github_repository_id", null: false
+    t.string   "name",                       null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "created_by_id",              null: false
+    t.integer  "github_repository_id",       null: false
+    t.string   "with_file_matching_pattern"
   end
 
   add_index "checklists", ["github_repository_id"], name: "index_checklists_on_github_repository_id", using: :btree

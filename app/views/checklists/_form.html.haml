@@ -14,5 +14,11 @@
     .col-sm-6
       = f.text_field :name, class: 'form-control'
   .form-group
-    .actions
-      = f.submit 'Save'
+    = f.label :with_file_matching_pattern, "Only when at least one changed file path matches this pattern (regexp)", class: 'control-label col-sm-2'
+    .col-sm-6
+      = f.text_field :with_file_matching_pattern, class: 'form-control'
+  .form-group
+    .col-sm-2
+    .col-sm-6
+      .actions
+        = f.submit 'Save', class: 'btn btn-primary btn-sm'
