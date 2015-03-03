@@ -1,5 +1,5 @@
 $(document).on('ajax:success', '.destroy-checklist-item', function() {
-  $(this).closest('.row').remove()
+  $(this).closest('.row').slideUp('slow', function() { $(this).remove() })
 })
 
 $(document).on('ajax:success', '.new_checklist_item', function(e, data) {
