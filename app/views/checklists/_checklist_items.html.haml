@@ -5,5 +5,4 @@
   - checklist.checklist_items.each do |item|
     = render 'checklist_item', item: item, checklist: checklist
   .row
-    .col-xs-10
-      = render 'checklist_item_form', checklist: checklist, item: ChecklistItem.new, placeholder: 'New item'
+    = render 'checklist_item_form', checklist: checklist, item: ChecklistItem.new, placeholder: 'New item'

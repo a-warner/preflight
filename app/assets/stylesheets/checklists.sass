@@ -3,18 +3,18 @@
   .btn
     vertical-align: middle
 
-.checklist-item-name
-  .edit_checklist_item
+.edit_checklist_item
+  [data-edit-control]
     display: none
 
   &[data-edit-mode]
-    .edit_checklist_item
+    [data-edit-control]
       display: block
     .name
       display: none
 
   &:not([data-edit-mode])
-    &:hover:after
+    .checklist-item-name:hover:after
       content: attr(data-edit-prompt)
       margin-left: 5px
       color: grey
