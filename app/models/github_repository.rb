@@ -18,13 +18,11 @@ class GithubRepository < ActiveRecord::Base
     pluck(:github_full_name, :id)
   end
 
-  def apply_checklists_for_pull!(pull_request_webhook)
+  def apply_checklists_for_pull!(pull_id, number)
     transaction do
-      pull_id = pull_request_webhook['pull_request']['id']
       return unless candidates = checklists.includes(:checklist_items).presence
 
       client  = candidates.first.github_client
-      number  = pull_request_webhook['number']
       files   = client.pull_request_files(github_full_name, number)
 
       to_apply = candidates.select do |c|

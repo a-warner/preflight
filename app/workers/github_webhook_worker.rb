@@ -3,6 +3,8 @@ class GithubWebhookWorker < Struct.new(:headers, :body)
   WANTED_HEADERS = %w(X-GitHub-Event X-GitHub-Delivery) << HUB_SIGNATURE
   InvalidSignature = Class.new(StandardError)
 
+  HANDLED_ACTIONS = %w(opened synchronize)
+
   def self.get_headers(headers)
     WANTED_HEADERS.each_with_object({}) do |header, hash|
       hash[header] = headers[header]
@@ -12,10 +14,10 @@ class GithubWebhookWorker < Struct.new(:headers, :body)
   def perform
     verify_signature!
 
-    return unless parsed_body['action'] == 'opened'
-    return unless repo = GithubRepository.find_by_github_id(parsed_body['repository']['id'])
+    return unless HANDLED_ACTIONS.include?(action)
+    return unless repo = GithubRepository.find_by_github_id(repository_id)
 
-    repo.apply_checklists_for_pull!(parsed_body)
+    repo.apply_checklists_for_pull!(pull_id, number)
   end
 
   def verify_signature!
@@ -29,5 +31,21 @@ class GithubWebhookWorker < Struct.new(:headers, :body)
 
   def parsed_body
     @parsed_body ||= JSON.parse(body)
+  end
+
+  def pull_id
+    parsed_body.fetch('pull_request').fetch('id')
+  end
+
+  def number
+    parsed_body.fetch('number')
+  end
+
+  def repository_id
+    parsed_body.fetch('repository').fetch('id')
+  end
+
+  def action
+    parsed_body['action']
   end
 end
