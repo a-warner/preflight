@@ -10,18 +10,16 @@ $(document).on('ajax:success', '.new_checklist_item', function(e, data) {
   alert(xhr.responseText)
 })
 
-$(document).on('click', '.edit_checklist_item[data-edit-mode] .checklist-item-name', function() {
-  $(this).closest('.edit_checklist_item').removeAttr('data-edit-mode')
-}).on('click', '.edit_checklist_item:not([data-edit-mode]) .checklist-item-name', function() {
+$(document).on('click', '.edit_checklist_item:not([data-edit-mode]) .checklist-item-name', function() {
   var $form = $(this).closest('.edit_checklist_item')
   $form.attr('data-edit-mode', true).
     find('input[type="text"]').focus().end().
     closest('.checklist-items').find('.edit_checklist_item').not($form).removeAttr('data-edit-mode')
   return false
-}).on('click', '.edit_checklist_item input[type="text"]', function() {
-  return false
-}).on('click', function() {
-  $('.edit_checklist_item').removeAttr('data-edit-mode')
+}).on('click', function(e) {
+  if (!$(e.target).is('.edit_checklist_item input[type="text"]')) {
+    $('.edit_checklist_item').removeAttr('data-edit-mode')
+  }
 })
 
 $(document).on('ajax:success', '.edit_checklist_item', function(e, data) {
