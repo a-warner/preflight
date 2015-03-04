@@ -16,7 +16,7 @@ $(document).on('click', '.edit_checklist_item[data-edit-mode] .checklist-item-na
   var $form = $(this).closest('.edit_checklist_item')
   $form.attr('data-edit-mode', true).
     find('input[type="text"]').focus().end().
-    closest('.checklist-items').find('.edit_checklist_item').not($this).removeAttr('data-edit-mode')
+    closest('.checklist-items').find('.edit_checklist_item').not($form).removeAttr('data-edit-mode')
   return false
 }).on('click', '.edit_checklist_item input[type="text"]', function() {
   return false
