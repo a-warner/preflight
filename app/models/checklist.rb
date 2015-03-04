@@ -18,6 +18,13 @@ class Checklist < ActiveRecord::Base
 
   delegate :github_client, to: :created_by
 
+  def apply_to_pull_with_files?(files)
+    return true unless with_file_matching_pattern.present?
+    re = Regexp.new(with_file_matching_pattern)
+
+    files.any? { |f| f.filename =~ re }
+  end
+
   protected
 
   def hook_repository

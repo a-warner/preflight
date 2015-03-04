@@ -21,8 +21,15 @@ class GithubRepository < ActiveRecord::Base
   def apply_checklists_for_pull!(pull_request_webhook)
     transaction do
       pull_id = pull_request_webhook['pull_request']['id']
+      return unless candidates = checklists.includes(:checklist_items).presence
 
-      to_apply = checklists.includes(:checklist_items).each_with_object([]) do |c, o|
+      client  = candidates.first.github_client
+      number  = pull_request_webhook['number']
+      files   = client.pull_request_files(github_full_name, number)
+
+      to_apply = candidates.select do |c|
+        c.apply_to_pull_with_files?(files)
+      end.each_with_object([]) do |c, o|
         c.applied_checklists.where(github_pull_request_id: pull_id).first_or_create! do |_|
           o << c
         end
@@ -30,8 +37,6 @@ class GithubRepository < ActiveRecord::Base
 
       return unless to_apply.present?
 
-      client   = to_apply.first.github_client
-      number   = pull_request_webhook['number']
       body     = client.pull_request(github_full_name, number)['body']
       new_body = (to_apply.map(&:to_markdown) << body).join("\n\n--------\n")
 
