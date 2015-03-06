@@ -16,7 +16,7 @@ require 'delegate'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Dotenv.load!
+Dotenv.load! if Rails.env.test? || Rails.env.development?
 
 module Preflight
   class Application < Rails::Application
