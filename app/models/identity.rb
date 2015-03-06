@@ -32,6 +32,10 @@ class Identity < ActiveRecord::Base
     omniauth_data.info.image
   end
 
+  def profile_url
+    omniauth_data.extra.raw_info.html_url
+  end
+
   delegate :credentials, to: :omniauth_data
 
   def client

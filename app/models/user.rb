@@ -63,6 +63,10 @@ class User < ActiveRecord::Base
     github_identity.image_url
   end
 
+  def github_profile_url
+    github_identity.profile_url
+  end
+
   private
 
   def github_identity
