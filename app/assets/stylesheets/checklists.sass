@@ -14,10 +14,17 @@
       display: none
 
   &:not([data-edit-mode])
-    .checklist-item-name:hover:after
-      content: attr(data-edit-prompt)
-      margin-left: 5px
-      color: grey
+    .checklist-item-name
+      &:after
+        content: attr(data-edit-prompt)
+        margin-left: 5px
+        color: grey
+
+      @media (min-width: 768px)
+        &:after
+          display: none
+        &:hover:after
+          display: inline
 
 [data-comfortable-text]
   @media (max-width: 767px)
