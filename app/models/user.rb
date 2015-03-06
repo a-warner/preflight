@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
     GithubRepository.find_or_create_all(repos)
     update!(accessible_github_repository_ids: repos.map(&:id))
   end
+  handle_asynchronously :sync_accessible_repositories
 
   def accessible_github_repositories
     GithubRepository.where(github_id: accessible_github_repository_ids)
