@@ -36,6 +36,6 @@ module Preflight
     config.active_record.raise_in_transactional_callbacks = true
     config.active_job.queue_adapter = :delayed_job
 
-    config.autoload_paths += %w(app/workers lib/)
+    config.autoload_paths += %w(lib/)
   end
 end
