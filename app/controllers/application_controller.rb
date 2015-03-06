@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  if ENV['REQUIRE_HTTPS']
+    before_filter :require_https
+  end
+
   protect_from_forgery with: :exception
 
   decent_configuration do
@@ -11,5 +15,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     checklists_path
+  end
+
+  private
+
+  def require_https
+    unless request.scheme == 'https'
+      redirect_to %{https://#{request.host_with_port}#{request.path}#{request.query_string}}
+    end
   end
 end
