@@ -15,4 +15,5 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require mousetrap-1.4.6
+//= require fastclick-1.0.6
 //= require_tree .
