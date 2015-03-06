@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.action_mailer.default_url_options = { host: ENV.fetch('CANONICAL_DOMAIN'), protocol: ENV.fetch('URL_PROTOCOL') }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
