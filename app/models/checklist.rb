@@ -13,7 +13,7 @@ class Checklist < ActiveRecord::Base
   end
 
   def to_markdown
-    "# #{name}\n" + checklist_items.map(&:to_markdown).join("\n")
+    "#### #{name}\n" + checklist_items.map(&:to_markdown).join("\n")
   end
 
   delegate :github_client, to: :created_by
