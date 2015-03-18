@@ -22,6 +22,7 @@ gem "twitter-bootstrap-rails"
 gem 'coffee-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
+gem 'rack-timeout'
 gem 'rails', '~> 4.2.0'
 gem 'sass-rails'
 gem 'thin'
