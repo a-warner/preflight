@@ -36,7 +36,7 @@ class GithubRepository < ActiveRecord::Base
       return unless to_apply.present?
 
       body     = client.pull_request(github_full_name, number)['body']
-      new_body = (to_apply.map(&:to_markdown) << body).join("\n\n--------\n")
+      new_body = (to_apply.map(&:to_markdown).prepend(body)).join("\n\n--------\n")
 
       client.update_pull_request(
         github_full_name,
