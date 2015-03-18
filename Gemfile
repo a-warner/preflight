@@ -28,6 +28,7 @@ gem 'sass-rails'
 gem 'thin'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'unicorn'
 
 group :test, :development do
   gem "factory_girl"
