@@ -11,7 +11,7 @@ class ChecklistItem < ActiveRecord::Base
     {
       id: id,
       name: name,
-      path: UrlHelpers.checklist_checklist_item_path(checklist, self)
+      path: UrlHelpers.polymorphic_path([checklist, self])
     }
   end
 end

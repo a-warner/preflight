@@ -59,7 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1)
-    connection_pool (2.1.2)
+    connection_pool (2.1.3)
     daemons (1.1.9)
     decent_exposure (2.3.2)
     decent_generators (0.0.3)

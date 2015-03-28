@@ -31,7 +31,7 @@ class Checklist < ActiveRecord::Base
       name: name,
       repository_path: UrlHelpers.github_repository_path(github_repository),
       edit_path: UrlHelpers.edit_checklist_path(self),
-      items: checklist_items.map(&:as_json),
+      items: checklist_items.sort_by { |i| i.id || Float::INFINITY }.map(&:as_json),
       github_repository_full_name: github_repository.github_full_name,
       index_path: UrlHelpers.checklists_path
     }
