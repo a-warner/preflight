@@ -21,7 +21,7 @@ window.ChecklistItem = React.createClass({
         </div>
       );
 
-      var removeLink = <a href="{this.props.path}" className="destroy-checklist-item btn btn-danger btn-sm" data-method="delete" data-remote="true" data-disable="true" data-comfortable-text="Remove" data-abbreviated-text="X"></a>;
+      var removeLink = <a href={this.props.path} className="destroy-checklist-item btn btn-danger btn-sm" data-method="delete" data-remote="true" data-disable="true" data-comfortable-text="Remove" data-abbreviated-text="X"></a>;
     } else {
       placeholder = 'New Item';
       formClass = 'new_checklist_item';
