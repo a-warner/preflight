@@ -38,7 +38,7 @@ window.ChecklistItem = React.createClass({
             <input className='form-control' type="text" name="checklist_item[name]" id="checklist_item_name" placeholder={placeholder} value={this.state.formName} data-edit-control="true" onChange={this.handleFormChange} />
           </div>
           <div className="col-xs-2 col-md-1">
-            <input type="submit" name="Save" data-disable-with="Saving.." className="btn btn-primary btn-sm" data-edit-control="true" />
+            <input type="submit" value="Save" data-disable-with="Saving.." className="btn btn-primary btn-sm" data-edit-control="true" />
           </div>
         </form>
         <div className="col-xs-2 col-md-5">
