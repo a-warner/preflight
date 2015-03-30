@@ -1,5 +1,14 @@
 window.ChecklistItems = React.createClass({
+  getInitialState: function() {
+    return { editModeIdx: -1 };
+  },
+
+  updateEditModeIdx: function(newIdx) {
+    this.setState({ editModeIdx: newIdx })
+  },
+
   render: function() {
+    var self = this;
     return (
       <div className="checklist-items">
         <div className="row">
@@ -9,8 +18,7 @@ window.ChecklistItems = React.createClass({
         </div>
         {
           this.props.items.map(function(item, idx) {
-            item.key = item.id;
-            return <ChecklistItem {...item} />;
+            return <ChecklistItem key={item.key} idx={idx} item={item} updateEditModeIdx={self.updateEditModeIdx} editModeIdx={self.state.editModeIdx} />;
           })
         }
       </div>
