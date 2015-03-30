@@ -1,6 +1,20 @@
 window.ChecklistItem = React.createClass({
+  formElement: function() { return React.findDOMNode(this.refs.form); },
+
+  componentDidMount: function() {
+    var self = this;
+    $(this.formElement()).on('ajax:success.ChecklistItem', function(e, newItem) {
+      self.toggleEditMode();
+      self.setState({item: newItem});
+    })
+  },
+
+  componentWillUnmount: function() {
+    $(this.formElement()).off('ajax:success.ChecklistItem')
+  },
+
   getInitialState: function() {
-    return { formName: this.props.item.name, name: this.props.item.name };
+    return { formName: this.props.item.name, item: this.props.item };
   },
 
   handleFormChange: function(e) {
@@ -9,10 +23,14 @@ window.ChecklistItem = React.createClass({
 
   currentlyInEditMode: function() { return this.props.editModeIdx === this.props.idx; },
 
-  toggleEditMode: function(e) {
+  handleRowClick: function(e) {
     if(!$(e.target).is('input')) {
-      this.props.updateEditModeIdx(this.currentlyInEditMode() ? -1 : this.props.idx);
+      this.toggleEditMode();
     }
+  },
+
+  toggleEditMode: function() {
+    this.props.updateEditModeIdx(this.currentlyInEditMode() ? -1 : this.props.idx);
   },
 
   render: function() {
@@ -24,7 +42,7 @@ window.ChecklistItem = React.createClass({
     var formAttrs = {
       'method': "post",
       'data-remote': "true",
-      'action': this.props.item.path,
+      'action': this.state.item.path,
       'className': formClass,
       'acceptCharset': "UTF-8"
     }
@@ -33,14 +51,14 @@ window.ChecklistItem = React.createClass({
       formAttrs['data-edit-mode'] = "true"
     }
 
-    if (this.props.item.id) {
+    if (this.state.item.id) {
       var name = (
         <div className="checklist-item-name" data-edit-prompt="Edit">
-          <span className="name">{this.state.name}</span>
+          <span className="name">{this.state.item.name}</span>
         </div>
       );
 
-      var removeLink = <a href={this.props.item.path} className="destroy-checklist-item btn btn-danger btn-sm" data-method="delete" data-remote="true" data-disable="true" data-comfortable-text="Remove" data-abbreviated-text="X"></a>;
+      var removeLink = <a href={this.state.item.path} className="destroy-checklist-item btn btn-danger btn-sm" data-method="delete" data-remote="true" data-disable="true" data-comfortable-text="Remove" data-abbreviated-text="X"></a>;
     } else {
       placeholder = 'New Item';
       formClass = 'new_checklist_item';
@@ -48,8 +66,8 @@ window.ChecklistItem = React.createClass({
     }
 
     return (
-      <div className="row" onClick={this.toggleEditMode}>
-        <form {...formAttrs}>
+      <div className="row" onClick={this.handleRowClick}>
+        <form {...formAttrs} ref="form">
           <div className="col-xs-6 col-md-4">
             {name}
             <input name="utf8" type="hidden" value="✓" />
