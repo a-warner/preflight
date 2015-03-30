@@ -6,11 +6,13 @@ window.ChecklistItem = React.createClass({
     $(this.formElement()).on('ajax:success.ChecklistItem', function(e, newItem) {
       self.toggleEditMode();
       self.setState({item: newItem});
+    }).on('ajax:error.ChecklistItem', function(e, xhr) {
+      alert(xhr.responseText)
     })
   },
 
   componentWillUnmount: function() {
-    $(this.formElement()).off('ajax:success.ChecklistItem')
+    $(this.formElement()).off('ajax:success.ChecklistItem').off('ajax:error.ChecklistItem')
   },
 
   getInitialState: function() {
