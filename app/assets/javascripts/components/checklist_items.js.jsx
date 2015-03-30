@@ -8,8 +8,9 @@ window.ChecklistItems = React.createClass({
           </div>
         </div>
         {
-          this.props.items.map(function(item) {
-            return <ChecklistItem {...item} />
+          this.props.items.map(function(item, idx) {
+            item.key = item.id;
+            return <ChecklistItem {...item} />;
           })
         }
       </div>
