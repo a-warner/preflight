@@ -30,7 +30,7 @@ window.ChecklistItem = React.createClass({
 
     return (
       <div className="row">
-        <form method="post" data-remote="true" action={this.props.path} className={formClass} accept-charset="UTF-8">
+        <form method="post" data-remote="true" action={this.props.path} className={formClass} acceptCharset="UTF-8">
           <div className="col-xs-6 col-md-4">
             {name}
             <input name="utf8" type="hidden" value="✓" />
