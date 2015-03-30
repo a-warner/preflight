@@ -1,4 +1,0 @@
-.row
-  = render 'checklists/checklist_item_form', checklist: checklist, item: item
-  .col-xs-2.col-md-5
-    = link_to '', UrlHelpers.polymorphic_path([checklist, item]), class: 'destroy-checklist-item btn btn-danger btn-sm', method: :delete, remote: true, :'data-disable' => true, :'data-comfortable-text' => 'Remove', :'data-abbreviated-text' => 'X'
