@@ -14,6 +14,10 @@ window.ChecklistItems = React.createClass({
     this.setState({ items: newItems });
   },
 
+  removeItem: function(itemId) {
+    this.setState({items: items.filter(function(i) { return i.id !== itemId }) });
+  },
+
   render: function() {
     var self = this;
     return (
@@ -25,7 +29,7 @@ window.ChecklistItems = React.createClass({
         </div>
         {
           this.state.items.map(function(item, idx) {
-            return <ChecklistItem key={item.id} idx={idx} item={item} updateEditModeIdx={self.updateEditModeIdx} editModeIdx={self.state.editModeIdx} addChecklistItem={self.addChecklistItem} />;
+            return <ChecklistItem key={item.id} idx={idx} item={item} updateEditModeIdx={self.updateEditModeIdx} editModeIdx={self.state.editModeIdx} addChecklistItem={self.addChecklistItem} removeItem={self.removeItem} />;
           })
         }
       </div>

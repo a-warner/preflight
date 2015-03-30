@@ -1,8 +1,11 @@
 window.ChecklistItem = React.createClass({
   formElement: function() { return React.findDOMNode(this.refs.form); },
+  removeLink: function() { return React.findDOMNode(this.refs.removeLink); },
+  row: function() { return React.findDOMNode(this.refs.row); },
 
   componentDidMount: function() {
     var self = this;
+
     $(this.formElement()).on('ajax:success.ChecklistItem', function(e, newItem) {
       if (self.newRecord()) {
         self.props.addChecklistItem(newItem);
@@ -13,11 +16,16 @@ window.ChecklistItem = React.createClass({
       }
     }).on('ajax:error.ChecklistItem', function(e, xhr) {
       alert(xhr.responseText)
-    })
+    });
+
+    $(this.removeLink()).on('ajax:success.ChecklistItem', function() {
+      $(self.row()).slideUp('slow', function() { self.removeItem(this.state.item.id) })
+    });
   },
 
   componentWillUnmount: function() {
     $(this.formElement()).off('ajax:success.ChecklistItem').off('ajax:error.ChecklistItem')
+    $(this.removeLink()).off('ajax:success.ChecklistItem')
   },
 
   getInitialState: function() {
@@ -35,7 +43,7 @@ window.ChecklistItem = React.createClass({
   },
 
   handleRowClick: function(e) {
-    if(!$(e.target).is('input')) {
+    if(!$(e.target).is('input, a')) {
       this.toggleEditMode();
     }
   },
@@ -69,7 +77,7 @@ window.ChecklistItem = React.createClass({
         </div>
       );
 
-      var removeLink = <a href={this.state.item.path} className="destroy-checklist-item btn btn-danger btn-sm" data-method="delete" data-remote="true" data-disable="true" data-comfortable-text="Remove" data-abbreviated-text="X"></a>;
+      var removeLink = <a ref="removeLink" href={this.state.item.path} className="destroy-checklist-item btn btn-danger btn-sm" data-method="delete" data-remote="true" data-disable="true" data-comfortable-text="Remove" data-abbreviated-text="X"></a>;
     } else {
       placeholder = 'New Item';
       formClass = 'new_checklist_item';
@@ -77,7 +85,7 @@ window.ChecklistItem = React.createClass({
     }
 
     return (
-      <div className="row" onClick={this.handleRowClick}>
+      <div className="row" onClick={this.handleRowClick} ref="row">
         <form {...formAttrs} ref="form">
           <div className="col-xs-6 col-md-4">
             {name}
