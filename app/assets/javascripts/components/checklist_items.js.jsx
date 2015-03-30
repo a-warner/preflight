@@ -9,9 +9,8 @@ window.ChecklistItems = React.createClass({
 
   addChecklistItem: function(newItem) {
     var newItems = this.state.items.slice(0);
-    newItems.splice(this.state.items.length - 1, 0, newItem);
-
-    this.setState({ items: newItems });
+    newItems.push(newItem);
+    this.setState({ items: newItems, newItemFormName: '' });
   },
 
   removeItem: function(itemId) {
@@ -32,6 +31,9 @@ window.ChecklistItems = React.createClass({
             return <ChecklistItem key={item.id} idx={idx} item={item} updateEditModeIdx={self.updateEditModeIdx} editModeIdx={self.state.editModeIdx} addChecklistItem={self.addChecklistItem} removeItem={self.removeItem} />;
           })
         }
+        <div className="row">
+          <ChecklistItemForm placeholder="New Item" method="post" item={{name: this.state.newItemFormName, path: this.props.checklist.create_item_path}} editMode={true} formClass="new_checklist_item" formAjaxSuccess={this.addChecklistItem} />
+        </div>
       </div>
     );
   }

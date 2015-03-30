@@ -19,6 +19,10 @@ window.ChecklistItemForm = React.createClass({
     return { formName: this.props.item.name }
   },
 
+  componentWillReceiveProps: function(newProps) {
+    this.setState({ formName: newProps.item.name })
+  },
+
   handleFormChange: function(e) {
     this.setState({ formName: e.target.value });
   },
