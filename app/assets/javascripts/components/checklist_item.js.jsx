@@ -4,8 +4,13 @@ window.ChecklistItem = React.createClass({
   componentDidMount: function() {
     var self = this;
     $(this.formElement()).on('ajax:success.ChecklistItem', function(e, newItem) {
-      self.toggleEditMode();
-      self.setState({item: newItem});
+      if (self.newRecord()) {
+        self.props.addChecklistItem(newItem);
+        self.setState({formName: ''});
+      } else {
+        self.toggleEditMode();
+        self.setState({item: newItem});
+      }
     }).on('ajax:error.ChecklistItem', function(e, xhr) {
       alert(xhr.responseText)
     })
@@ -23,7 +28,11 @@ window.ChecklistItem = React.createClass({
     this.setState({ formName: e.target.value });
   },
 
-  currentlyInEditMode: function() { return this.props.editModeIdx === this.props.idx; },
+  newRecord: function() { return !this.state.item.id; },
+
+  currentlyInEditMode: function() {
+    return this.newRecord() || this.props.editModeIdx === this.props.idx;
+  },
 
   handleRowClick: function(e) {
     if(!$(e.target).is('input')) {
@@ -53,7 +62,7 @@ window.ChecklistItem = React.createClass({
       formAttrs['data-edit-mode'] = "true"
     }
 
-    if (this.state.item.id) {
+    if (!this.newRecord()) {
       var name = (
         <div className="checklist-item-name" data-edit-prompt="Edit">
           <span className="name">{this.state.item.name}</span>

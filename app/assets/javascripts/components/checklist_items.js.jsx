@@ -1,10 +1,17 @@
 window.ChecklistItems = React.createClass({
   getInitialState: function() {
-    return { editModeIdx: -1 };
+    return { editModeIdx: -1, items: this.props.items };
   },
 
   updateEditModeIdx: function(newIdx) {
     this.setState({ editModeIdx: newIdx })
+  },
+
+  addChecklistItem: function(newItem) {
+    var newItems = this.state.items.slice(0);
+    newItems.splice(this.state.items.length - 1, 0, newItem);
+
+    this.setState({ items: newItems });
   },
 
   render: function() {
@@ -17,8 +24,8 @@ window.ChecklistItems = React.createClass({
           </div>
         </div>
         {
-          this.props.items.map(function(item, idx) {
-            return <ChecklistItem key={item.key} idx={idx} item={item} updateEditModeIdx={self.updateEditModeIdx} editModeIdx={self.state.editModeIdx} />;
+          this.state.items.map(function(item, idx) {
+            return <ChecklistItem key={item.id} idx={idx} item={item} updateEditModeIdx={self.updateEditModeIdx} editModeIdx={self.state.editModeIdx} addChecklistItem={self.addChecklistItem} />;
           })
         }
       </div>
