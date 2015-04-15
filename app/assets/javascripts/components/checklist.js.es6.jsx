@@ -1,5 +1,5 @@
 var Checklist = React.createClass({
-  render: function() {
+  render() {
     return (
       <div>
         <h3><a href={this.props.repository_path}>{this.props.github_repository_full_name}</a></h3>
