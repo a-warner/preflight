@@ -24,6 +24,7 @@ angular.module('preflight').controller('Checklist', ['$scope', '$document', func
 
   $scope.newItemCreated = function(newItem) {
     $scope.items.push(newItem);
+    newItem.shouldBeFocused = true;
   }
 
   $scope.itemDeleted = function(item) {

@@ -6,7 +6,7 @@
           {{ item.name }}
         </span>
       </div>
-      <input type="text" name="checklist_item[name]" ng-model="item.name" ng-if="item.editMode" placeholder="{{item.id ? '' : 'New item'}}" class="form-control" data-edit-control=true focus-when="item.id && item.editMode">
+      <input type="text" name="checklist_item[name]" ng-model="item.name" ng-if="item.editMode" placeholder="{{item.id ? '' : 'New item'}}" class="form-control" data-edit-control=true focus-when="item.shouldBeFocused">
     </div>
     <div class="col-xs-2 col-md-1">
       <input type="submit" value="{{ item.submitting ? 'Saving..' : 'Save' }}" ng-disabled="{{ item.submitting }}" ng-if="item.editMode" class="btn btn-primary btn-sm" data-edit-control=true>

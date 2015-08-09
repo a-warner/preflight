@@ -12,7 +12,7 @@ angular.module('preflight').directive('checklistItem', ['$http', function($http)
       scope.toggleEditItem = function(event) {
         if (event.target.tagName === 'INPUT') { return }
 
-        scope.item.editMode = !scope.item.editMode;
+        scope.item.shouldBeFocused = scope.item.editMode = !scope.item.editMode;
         scope.toggledEditMode({item: scope.item});
       }
 
