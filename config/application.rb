@@ -37,5 +37,7 @@ module Preflight
     config.active_job.queue_adapter = :delayed_job
 
     config.autoload_paths += %w(lib/)
+
+    config.assets.paths << Rails.root.join("vendor","assets","bower_components")
   end
 end

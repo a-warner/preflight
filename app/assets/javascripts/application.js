@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
+//= require angular/angular
 //= require mousetrap-1.4.6
 //= require fastclick-1.0.6
+//= require preflight
 //= require_tree .

@@ -1,6 +1,7 @@
 ruby File.read('./.ruby-version').chomp
 source 'https://rubygems.org'
 
+gem 'bower-rails'
 gem "decent_exposure"
 gem "decent_generators"
 gem 'delayed_job'

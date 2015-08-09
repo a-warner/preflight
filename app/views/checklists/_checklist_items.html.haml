@@ -2,7 +2,14 @@
   .row
     .col-xs-10
       %h4 Item
-  - checklist.checklist_items.each do |item|
-    = render 'checklist_item', item: item, checklist: checklist
-  .row
-    = render 'checklist_item_form', checklist: checklist, item: ChecklistItem.new, placeholder: 'New item'
+  %div{'ng-repeat' => 'item in items track by item.id'}
+    .row
+      %form{'ng-submit' => 'item.id ? updateItem(item) : createItem(item)', method: :put, 'stop-propagation' => 'click', 'ng-click' => 'toggleEditItem($event, item)', class: "{{ item.id ? 'edit_checklist_item' : 'new_checklist_item'}}"}
+        .col-xs-6.col-md-4
+          .checklist-item-name{'data-edit-prompt' => 'Edit', 'ng-if' => '!item.editMode'}
+            %span.name{'ng-if' => '!item.editMode', 'ng-model' => 'item.name'} {{ item.name }}
+          = text_field :checklist_item, :name, 'ng-model' => 'item.name', 'ng-if' => 'item.editMode', placeholder: "{{item.id ? '' : 'New item'}}", class: 'form-control', :'data-edit-control' => true, 'focus-when' => 'item.id && item.editMode'
+        .col-xs-2.col-md-1
+          = submit_tag "{{ item.submitting ? 'Saving..' : 'Save' }}", 'ng-disabled' => "{{ item.submitting }}", 'ng-if' => 'item.editMode', class: 'btn btn-primary btn-sm', :'data-edit-control' => true
+      .col-xs-2.col-md-5{'ng-if' => 'item.id'}
+        = link_to '', '', 'ng-click' => 'deleteItem(item)', 'ng-disabled' => '{{ item.submitting }}', class: 'destroy-checklist-item btn btn-danger btn-sm', :'data-comfortable-text' => 'Remove', :'data-abbreviated-text' => 'X'
