@@ -1,0 +1,27 @@
+<div class="checklist-items">
+  <div class="row">
+    <div class="col-xs-10">
+      <h4>Item</h4>
+    </div>
+  </div>
+  <div ng-repeat="item in items track by item.id">
+    <div class="row">
+      <form ng-submit="item.id ? updateItem(item) : createItem(item)" stop-propagation="click" ng-click="toggleEditItem($event, item)" class="{{ item.id ? 'edit_checklist_item' : 'new_checklist_item'}}">
+        <div class="col-xs-6 col-md-4">
+          <div class="checklist-item-name" data-edit-prompt="Edit" ng-if="!item.editMode">
+            <span class="name" ng-if="!item.editMode" ng-model="item.name">
+              {{ item.name }}
+            </span>
+          </div>
+          <input type="text" name="checklist_item[name]" ng-model="item.name" ng-if="item.editMode" placeholder="{{item.id ? '' : 'New item'}}" class="form-control" data-edit-control=true focus-when="item.id && item.editMode">
+        </div>
+        <div class="col-xs-2 col-md-1">
+          <input type="submit" value="{{ item.submitting ? 'Saving..' : 'Save' }}" ng-disabled="{{ item.submitting }}" ng-if="item.editMode" class="btn btn-primary btn-sm" data-edit-control=true>
+        </div>
+        <div class="col-xs-2 col-md-5" ng-if="item.id">
+          <a ng-click="deleteItem(item)" ng-disabled="{{ item.submitting }}" class="destroy-checklist-item btn btn-danger btn-sm" data-comfortable-text="Remove" data-abbreviated-text="X"></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
