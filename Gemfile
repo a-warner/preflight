@@ -1,6 +1,7 @@
 ruby File.read('./.ruby-version').chomp
 source 'https://rubygems.org'
 
+gem 'angular-rails-templates'
 gem 'bower-rails'
 gem "decent_exposure"
 gem "decent_generators"
