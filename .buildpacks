@@ -1,2 +1,3 @@
 https://github.com/ryandotsmith/nginx-buildpack
 https://github.com/heroku/heroku-buildpack-ruby.git
+https://github.com/Genius/heroku-buildpack-compile-tasks.git#ruby2
