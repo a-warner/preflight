@@ -12,6 +12,7 @@ class ChecklistsController < ApplicationController
   end
 
   def show
+    checklist.checklist_items.build
   end
 
   def new

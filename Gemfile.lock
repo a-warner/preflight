@@ -37,8 +37,13 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.7)
+    angular-rails-templates (0.2.0)
+      railties (>= 3.1)
+      sprockets (~> 2)
+      tilt
     arel (6.0.0)
     bcrypt (3.1.10)
+    bower-rails (0.10.0)
     builder (3.2.2)
     coderay (1.1.0)
     coffee-rails (4.1.0)
@@ -264,6 +269,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular-rails-templates
+  bower-rails
   coffee-rails
   decent_exposure
   decent_generators

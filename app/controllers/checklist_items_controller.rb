@@ -24,7 +24,7 @@ class ChecklistItemsController < ApplicationController
 
   def save_and_render_checklist
     if checklist_item.save
-      render partial: 'checklists/checklist_item', locals: {item: checklist_item, checklist: checklist}
+      render json: {item: checklist_item, new_item: checklist.checklist_items.build}
     else
       render text: checklist_item.errors.full_messages.join("\n"), status: :bad_request
     end

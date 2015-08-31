@@ -1,12 +1,11 @@
-%p#notice= notice
+%div{'ng-controller' => 'Checklist', 'ng-init' => "setChecklist(#{checklist.to_json})"}
+  %h3= link_to '{{ github_repository_full_name }}', '{{ repository_path }}'
+  %h3= '{{ name }}'
 
-%h3= link_to checklist.github_repository.github_full_name, github_repository_path(checklist.github_repository)
-%h3= checklist.name
+  .row
+    .col-xs-10
+      = link_to 'Edit', '{{ edit_path }}'
+      \|
+      = link_to 'Back', '{{ index_path }}'
 
-.row
-  .col-xs-10
-    = link_to 'Edit', edit_checklist_path(checklist)
-    \|
-    = link_to 'Back', checklists_path
-
-= render 'checklist_items', checklist: checklist
+  = render 'checklist_items', checklist: checklist
