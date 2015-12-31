@@ -6,4 +6,12 @@ class ChecklistItem < ActiveRecord::Base
   def to_markdown
     "- [ ] #{name}"
   end
+
+  def as_json(options = {})
+    {
+      id: id,
+      name: name,
+      path: UrlHelpers.polymorphic_path([checklist, self])
+    }
+  end
 end

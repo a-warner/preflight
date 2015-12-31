@@ -3,28 +3,17 @@
   .btn
     vertical-align: middle
 
-.edit_checklist_item
-  [data-edit-control]
-    display: none
+.checklist-item-name
+  &:after
+    content: attr(data-edit-prompt)
+    margin-left: 5px
+    color: grey
 
-  &[data-edit-mode]
-    [data-edit-control]
-      display: block
-    .name
+  @media (min-width: 768px)
+    &:after
       display: none
-
-  &:not([data-edit-mode])
-    .checklist-item-name
-      &:after
-        content: attr(data-edit-prompt)
-        margin-left: 5px
-        color: grey
-
-      @media (min-width: 768px)
-        &:after
-          display: none
-        &:hover:after
-          display: inline
+    &:hover:after
+      display: inline
 
 [data-comfortable-text]
   @media (max-width: 767px)

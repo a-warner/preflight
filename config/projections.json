@@ -2,5 +2,13 @@
   "app/workers/*_worker.rb" : {
     "command": "worker",
     "template": "class %SWorker\nend"
+  },
+  "app/assets/javascripts/components/*.js.es6.jsx" : {
+    "command": "component",
+    "template": ""
+  },
+  "app/assets/javascripts/components/*.js.jsx" : {
+    "command": "component",
+    "template": ""
   }
 }

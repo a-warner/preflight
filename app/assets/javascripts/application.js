@@ -16,4 +16,7 @@
 //= require turbolinks
 //= require mousetrap-1.4.6
 //= require fastclick-1.0.6
+//= require react
+//= require components
+//= require react_ujs
 //= require_tree .
