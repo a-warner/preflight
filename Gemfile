@@ -2,7 +2,6 @@ ruby File.read('./.ruby-version').chomp
 source 'https://rubygems.org'
 
 gem "decent_exposure"
-gem "decent_generators"
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
@@ -23,7 +22,8 @@ gem 'coffee-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'rack-timeout'
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 4.2.5.2'
+gem 'rake', '< 11.0'
 gem 'sass-rails'
 gem 'thin'
 gem 'turbolinks'
