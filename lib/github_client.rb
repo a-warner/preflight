@@ -26,7 +26,11 @@ class GithubClient < SimpleDelegator
   end
 
   def repositories_with_write_access
-    with_write_access(repos + orgs.map { |o| org_repos(o.login) }.flatten)
+    repos = find_user_installations.installations.flat_map do |installation|
+      find_installation_repositories_for_user(installation.id).repositories
+    end
+
+    with_write_access(repos)
   end
 
   def create_default_hook(repo)
