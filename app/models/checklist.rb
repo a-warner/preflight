@@ -4,7 +4,6 @@ class Checklist < ActiveRecord::Base
   has_many :applied_checklists, dependent: :destroy
   belongs_to :created_by, class_name: 'User'
   belongs_to :github_repository
-  after_create :hook_repository
 
   validate :user_can_access_repository
   validate :matching_pattern_is_valid_regexp
@@ -24,12 +23,6 @@ class Checklist < ActiveRecord::Base
     re = Regexp.new(with_file_matching_pattern)
 
     files.any? { |f| f.filename =~ re }
-  end
-
-  protected
-
-  def hook_repository
-    GithubWebhook.hook!(created_by, github_repository)
   end
 
   private

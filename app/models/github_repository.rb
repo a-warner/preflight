@@ -18,11 +18,11 @@ class GithubRepository < ActiveRecord::Base
     pluck(:github_full_name, :id)
   end
 
-  def apply_checklists_for_pull!(pull_id, number)
+  def apply_checklists_for_pull!(installation_id, pull_id, number)
     transaction do
       return unless candidates = checklists.includes(:checklist_items).presence
 
-      client  = candidates.first.github_client
+      client  = GithubClient.for_installation(installation_id)
       files   = client.pull_request_files(github_full_name, number)
 
       to_apply = candidates.select do |c|
