@@ -13,4 +13,8 @@ class GithubWebhook < ActiveRecord::Base
       r.created_by = created_by
     end
   end
+
+  def self.unhook_all_hooked_by_old_oauth_integration!
+    # TODO
+  end
 end
