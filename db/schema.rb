@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181125224029) do
+ActiveRecord::Schema.define(version: 20181125230625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20181125224029) do
     t.integer  "created_by_id",        null: false
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.datetime "hook_deleted_at"
   end
 
   add_index "github_webhooks", ["github_id"], name: "index_github_webhooks_on_github_id", using: :btree

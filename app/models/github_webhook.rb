@@ -15,6 +15,14 @@ class GithubWebhook < ActiveRecord::Base
   end
 
   def self.unhook_all_hooked_by_old_oauth_integration!
-    # TODO
+    where(hook_deleted_at: nil).find_each do |hook|
+      hook.transaction do
+        hook.hook_deleted_at = Time.now
+
+        hook.created_by.github_client.remove_hook(hook.github_repository.github_full_name, hook.github_id)
+
+        hook.save!
+      end
+    end
   end
 end
