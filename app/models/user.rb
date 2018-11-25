@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   end
 
   def can_access_repository?(github_repository)
-    accessible_github_repository_ids.include?(github_repository.github_id)
+    accessible_github_repository_ids.map(&:to_s).include?(github_repository.github_id.to_s)
   end
 
   def avatar_url

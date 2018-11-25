@@ -24,7 +24,7 @@ class ChecklistsController < ApplicationController
   end
 
   def create
-    checklist.created_by = current_user
+    checklist.updater = current_user
 
     if checklist.save
       redirect_to checklist, notice: 'Checklist was successfully created.'
@@ -34,6 +34,8 @@ class ChecklistsController < ApplicationController
   end
 
   def update
+    checklist.updater = current_user
+
     if checklist.update(checklist_params)
       redirect_to checklist, notice: 'Checklist was successfully updated.'
     else
