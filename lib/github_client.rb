@@ -26,8 +26,15 @@ class GithubClient < SimpleDelegator
   end
 
   def repositories_with_write_access
-    repos = find_user_installations.installations.flat_map do |installation|
-      find_installation_repositories_for_user(installation.id).repositories
+    repos = []
+
+    find_user_installations.installations.flat_map do |installation|
+      page = 1
+
+      begin
+        repos += find_installation_repositories_for_user(installation.id, page: page, per_page: 100).repositories
+        page += 1
+      end while last_response.rels[:next].present?
     end
 
     with_write_access(repos)
