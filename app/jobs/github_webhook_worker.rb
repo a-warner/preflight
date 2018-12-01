@@ -16,8 +16,9 @@ class GithubWebhookWorker < Struct.new(:headers, :body)
 
     return unless HANDLED_ACTIONS.include?(action)
     return unless repo = GithubRepository.find_by_github_id(repository_id)
+    return unless installation_id.present?
 
-    repo.apply_checklists_for_pull!(pull_id, number)
+    repo.apply_checklists_for_pull!(installation_id, pull_id, number)
   end
 
   def verify_signature!
@@ -47,5 +48,9 @@ class GithubWebhookWorker < Struct.new(:headers, :body)
 
   def action
     parsed_body['action']
+  end
+
+  def installation_id
+    parsed_body.fetch('installation', {})['id']
   end
 end
