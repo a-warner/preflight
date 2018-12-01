@@ -9,7 +9,7 @@ class Checklist < ActiveRecord::Base
   validate :user_can_access_repository
   validate :matching_pattern_is_valid_regexp
 
-  after_update :clear_updater
+  after_save :clear_updater
 
   attr_reader :updater
 
