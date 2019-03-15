@@ -11,6 +11,7 @@ gem 'foreman'
 gem "haml"
 gem "haml-rails"
 gem 'newrelic_rpm'
+gem 'nokogiri', '1.8.5'
 gem "omniauth"
 gem 'omniauth-github'
 gem 'octokit'
