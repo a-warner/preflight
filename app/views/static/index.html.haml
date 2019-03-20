@@ -2,7 +2,7 @@
 
 - unless user_signed_in?
   %div
-    %a.hero-button.btn.btn-lg.btn-block.btn-primary{type: 'button', href: user_omniauth_authorize_path(:github)} Auth Github to get started
+    %a.hero-button.btn.btn-lg.btn-block.btn-primary{type: 'button', href: user_github_omniauth_authorize_path} Auth Github to get started
 
 %p.lead
   As software projects and teams grow, it gets more and more difficult for engineers to remember the things they should consider when making changes to the code. This can be partially mitigated by a comprehensive test suite, which will (in many cases) tell engineers when they've broken existing functionality, but a test suite falls short of capturing (at least) the following problems: introduction of security holes, performance regressions, visual bugs and regressions, UX issues, failure to mobile optimize certain pages, and more.

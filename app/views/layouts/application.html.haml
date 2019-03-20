@@ -26,7 +26,7 @@
               - if user_signed_in?
                 %li= link_to 'Checklists', checklists_path
               - else
-                %li= link_to 'Login with Github', user_omniauth_authorize_path(:github)
+                %li= link_to 'Login with Github', user_github_omniauth_authorize_path
 
             .navbar-right
               - if user_signed_in?
