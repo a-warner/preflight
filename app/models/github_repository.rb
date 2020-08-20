@@ -1,4 +1,4 @@
-class GithubRepository < ActiveRecord::Base
+class GithubRepository < ApplicationRecord
   has_many :checklists, dependent: :destroy
 
   validates :github_id, :github_full_name, :github_owner_type, :github_url, presence: true

@@ -1,4 +1,4 @@
-class Identity < ActiveRecord::Base
+class Identity < ApplicationRecord
   belongs_to :user, inverse_of: :identities
   validates :provider, presence: true, :inclusion => { in: %w(github) }
   validates :omniauth_data, presence: true

@@ -1,4 +1,4 @@
-class GithubWebhook < ActiveRecord::Base
+class GithubWebhook < ApplicationRecord
   belongs_to :github_repository
   belongs_to :created_by, class_name: 'User'
 

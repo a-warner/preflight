@@ -1,4 +1,4 @@
-class AppliedChecklist < ActiveRecord::Base
+class AppliedChecklist < ApplicationRecord
   belongs_to :checklist
 
   validates :checklist, :github_pull_request_id, presence: true

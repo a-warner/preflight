@@ -1,4 +1,4 @@
-class Checklist < ActiveRecord::Base
+class Checklist < ApplicationRecord
   validates :name, :created_by, :github_repository, presence: true
   has_many :checklist_items, dependent: :destroy
   has_many :applied_checklists, dependent: :destroy
