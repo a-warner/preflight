@@ -20,7 +20,6 @@ gem "pry"
 gem "pry-rails"
 gem "twitter-bootstrap-rails"
 gem 'coffee-rails'
-gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'rack-timeout'
 gem 'rails', '~> 5.0.7.2'
