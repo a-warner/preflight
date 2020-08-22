@@ -2,10 +2,10 @@ class ChecklistsController < ApplicationController
   before_filter :authenticate_user!
 
   expose(:checklists) { current_user.accessible_checklists }
-  expose(:checklist, attributes: :checklist_params)
+  expose(:checklist, scope: -> { checklists })
 
   expose(:github_repositories) { current_user.accessible_github_repositories }
-  expose(:github_repository)
+  expose(:github_repository, scope: -> { github_repositories })
 
   def index
     checklists.includes(:github_repository)
@@ -24,6 +24,7 @@ class ChecklistsController < ApplicationController
   end
 
   def create
+    checklist.github_repository = github_repositories.find_by_id(checklist_params[:github_repository_id])
     checklist.updater = current_user
 
     if checklist.save
