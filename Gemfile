@@ -10,6 +10,7 @@ gem 'dotenv'
 gem 'foreman'
 gem "haml"
 gem "haml-rails"
+gem 'listen'
 gem 'newrelic_rpm'
 gem 'nokogiri', '~> 1.10.8'
 gem "omniauth"
@@ -20,10 +21,9 @@ gem "pry"
 gem "pry-rails"
 gem "twitter-bootstrap-rails"
 gem 'coffee-rails'
-gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'rack-timeout'
-gem 'rails', '~> 4.2.11'
+gem 'rails', '~> 5.2.4.3'
 gem 'rake', '< 13.0'
 gem 'sass-rails'
 gem 'thin'

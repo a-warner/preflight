@@ -1,10 +1,10 @@
 class ChecklistItemsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   expose(:checklists) { current_user.accessible_checklists }
-  expose(:checklist)
-  expose(:checklist_items, ancestor: :checklist)
-  expose(:checklist_item, attributes: :checklist_item_params)
+  expose(:checklist, scope: -> { checklists })
+  expose(:checklist_items, from: :checklist)
+  expose(:checklist_item, scope: -> { checklist_items })
 
   def create
     checklist_item.created_by = current_user
@@ -12,12 +12,13 @@ class ChecklistItemsController < ApplicationController
   end
 
   def update
+    checklist_item.attributes = checklist_item_params
     save_and_render_checklist
   end
 
   def destroy
     checklist_item.destroy
-    render nothing: true
+    head :ok
   end
 
   private
@@ -26,7 +27,7 @@ class ChecklistItemsController < ApplicationController
     if checklist_item.save
       render partial: 'checklists/checklist_item', locals: {item: checklist_item, checklist: checklist}
     else
-      render text: checklist_item.errors.full_messages.join("\n"), status: :bad_request
+      render body: checklist_item.errors.full_messages.join("\n"), status: :bad_request
     end
   end
 

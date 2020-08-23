@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < ApplicationController
-  before_filter :check_team_membership
+  before_action :check_team_membership
 
   def github
     if user_signed_in?
