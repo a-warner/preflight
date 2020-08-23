@@ -1,5 +1,5 @@
 class ChecklistsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   expose(:checklists) { current_user.accessible_checklists }
   expose(:checklist, scope: -> { checklists })

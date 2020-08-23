@@ -1,5 +1,5 @@
 class ChecklistItemsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   expose(:checklists) { current_user.accessible_checklists }
   expose(:checklist, scope: -> { checklists })
@@ -18,7 +18,7 @@ class ChecklistItemsController < ApplicationController
 
   def destroy
     checklist_item.destroy
-    render nothing: true
+    head :ok
   end
 
   private
@@ -27,7 +27,7 @@ class ChecklistItemsController < ApplicationController
     if checklist_item.save
       render partial: 'checklists/checklist_item', locals: {item: checklist_item, checklist: checklist}
     else
-      render text: checklist_item.errors.full_messages.join("\n"), status: :bad_request
+      render body: checklist_item.errors.full_messages.join("\n"), status: :bad_request
     end
   end
 

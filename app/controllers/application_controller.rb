@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   if ENV['REQUIRE_HTTPS']
-    before_filter :require_https
+    before_action :require_https
   end
 
   protect_from_forgery with: :exception
