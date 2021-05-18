@@ -12,7 +12,7 @@ gem "haml"
 gem "haml-rails"
 gem 'listen'
 gem 'newrelic_rpm'
-gem 'nokogiri', '~> 1.11.0'
+gem 'nokogiri', '~> 1.11.4'
 gem "omniauth"
 gem 'omniauth-github'
 gem 'octokit'
